@@ -9,3 +9,9 @@ https://github.com/Seeed-Studio/GPRS_SIM900
 5. Gagal Konek Server = kedap kedip 6x
 6. Berhasil Upload = kedap kedip cepat 4 x
  
+Battery Power ampe keisi penuh
+di 2631 mAh / 2.6Ah
+11:03 s/d 15:05
+
+next ...
+hitung berapa mAh pemakaian dalam satu jam.???
