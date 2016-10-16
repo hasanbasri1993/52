@@ -36,7 +36,7 @@ void setup() {
 void loop() {
   Serial.println(F("dapat kan ip ... "));
   cekapn();
-  while (!gprs.join("internet")) {
+  while (!gprs.join(F("internet"))) {
     Serial.println(F("gagal masuk setting apn"));
     gagalapn();
   }
