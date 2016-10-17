@@ -68,16 +68,10 @@ void loop() {
   baca_tanah = map(baca_tanah, 0, 1023, 0, 100);
   int sensorValue = analogRead(pin_battery);
   float voltage = (sensorValue * (5.0 / 1023.0)) - 0.45;
-
   delay(2000);
-
-
-
-  // Convert the analog reading (which goes from 0 - 1023) to a voltage (0 - 5V):
 
   int h = dht.readHumidity();
   int t = dht.readTemperature();
-
   Serial.println(F("print hasil baca sensor :"));
   Serial.print(F("Intensitas cahaya: "));
   Serial.print(baca_cahaya);
@@ -126,7 +120,6 @@ void berhasilupload() {
   digitalWrite(led_notif, HIGH);
 }
 
-
 void ceksim() {
   digitalWrite(led_notif, HIGH); delay(jeda); digitalWrite(led_notif, LOW); delay(jeda);
   digitalWrite(led_notif, HIGH); delay(jeda); digitalWrite(led_notif, LOW);
@@ -155,7 +148,6 @@ void gagalapn() {
 }
 
 void gagalkoneksi() {
-
   digitalWrite(led_notif, HIGH); delay(jeda); digitalWrite(led_notif, LOW); delay(jeda);
   digitalWrite(led_notif, HIGH); delay(jeda); digitalWrite(led_notif, LOW); delay(jeda);
   digitalWrite(led_notif, HIGH); delay(jeda); digitalWrite(led_notif, LOW); delay(jeda);
