@@ -1,3 +1,5 @@
+#include <Arduino.h>
+
 #include <GPRS_Shield_Arduino.h>
 #include <SoftwareSerial.h>
 #include <Wire.h>
