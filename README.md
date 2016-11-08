@@ -9,23 +9,17 @@
 
 ganti ke esp ahh
 
-D0 KOSONG
-
-ADS1115 pin:
-D1  SCL
-D2  SDA
-
 DHT22 pin:
-D3  DHTPIN
+22  DHTPIN
 
 LED INDICATOR pin:
-D4  DHTPIN
+13  DHTPIN
 
 microSD  pin :
-D5	CLK
-D6	MISO
-D7	MOSI
-D8	CS
+52	CLK
+51	MISO
+50	MOSI
+53	CS
 
 
 http://prntscr.com/d3nhcf

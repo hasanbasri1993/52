@@ -1,10 +1,7 @@
-#include <Adafruit_NeoPixel.h>
-Adafruit_NeoPixel pixels = Adafruit_NeoPixel(1, 10, NEO_GRB + NEO_KHZ800);
-
 #include <GPRS_Shield_Arduino.h>
 #include <SoftwareSerial.h>
 #include <Wire.h>
-GPRS gprs(2, 3, 9600); //TX_PIN, RX_PIN, BAUDRATE
+GPRS gprs(10, 11, 9600); //TX_PIN, RX_PIN, BAUDRATE
 char getwaktu[25];
 char buffer[64];
 
@@ -51,10 +48,6 @@ void setup() {
         }
         delay(3000);
         digitalWrite(led_notif, HIGH);
-
-        pixels.begin();
-        pixels.Color(255, 0, 0); // Moderately bright green color.
-        pixels.show();
 }
 
 void loop() {
@@ -62,10 +55,10 @@ void loop() {
         unsigned long currentMillis1 = millis();
 
 
-        /* if ((unsigned long)(currentMillis - previousMillisSycn) >= intervalsycn) {
-           bacalog ();
-           previousMillisSycn = currentMillis;
-           }*/
+        if ((unsigned long)(currentMillis - previousMillisSycn) >= intervalsycn) {
+                bacalog ();
+                previousMillisSycn = currentMillis;
+        }
 
         if ((unsigned long)(currentMillis1 - previousMillisLog) >= intervallog) {
                 bacasensor();
@@ -191,21 +184,11 @@ void bacalog () {
 }
 
 void berhasilupload() {
-        pixels.setPixelColor(0, pixels.Color(0, 150, 255)); // Moderately bright green color.
-        pixels.show(); delay(100);
-        ledmati(); delay(100);
-        pixels.setPixelColor(0, pixels.Color(0, 150, 255)); // Moderately bright green color.
-        pixels.show(); delay(100);
-        ledmati(); delay(100);
-        pixels.setPixelColor(0, pixels.Color(0, 150, 255)); // Moderately bright green color.
-        pixels.show(); delay(100);
-        ledmati(); delay(100);
-        pixels.setPixelColor(0, pixels.Color(0, 150, 255)); // Moderately bright green color.
-        pixels.show(); delay(100);
-        ledmati(); delay(100);
-        pixels.setPixelColor(0, pixels.Color(0, 150, 255)); // Moderately bright green color.
-        pixels.show(); delay(100);
-        ledmati(); delay(100);
+        digitalWrite(led_notif, HIGH); delay(100); digitalWrite(led_notif, LOW); delay(100);
+        digitalWrite(led_notif, HIGH); delay(100); digitalWrite(led_notif, LOW); delay(100);
+        digitalWrite(led_notif, HIGH); delay(100); digitalWrite(led_notif, LOW); delay(100);
+        digitalWrite(led_notif, HIGH); delay(100); digitalWrite(led_notif, LOW); delay(100);
+        digitalWrite(led_notif, HIGH);
 }
 
 void ceksim() {
@@ -243,9 +226,4 @@ void gagalkoneksi() {
         digitalWrite(led_notif, HIGH); delay(jeda); digitalWrite(led_notif, LOW); delay(jeda);
         digitalWrite(led_notif, HIGH); delay(jeda); digitalWrite(led_notif, LOW); delay(jeda);
         digitalWrite(led_notif, HIGH); delay(jeda); digitalWrite(led_notif, LOW);
-}
-
-void ledmati() {
-        pixels.setPixelColor(1, pixels.Color(0, 0, 0)); // Moderately bright green color.
-        pixels.show();
 }
