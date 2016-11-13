@@ -1,7 +1,7 @@
 #include <GPRS_Shield_Arduino.h>
 #include <SoftwareSerial.h>
 #include <Wire.h>
-GPRS gprs(10, 11, 9600); //TX_PIN, RX_PIN, BAUDRATE
+GPRS gprs(9, 8, 9600); //TX_PIN, RX_PIN, BAUDRATE
 char getwaktu[25];
 char buffer[64];
 
@@ -10,27 +10,27 @@ char buffer[64];
 File myFile;
 
 #include "DHT.h"
-#define DHTPIN 4
+#define DHTPIN 23
 #define DHTTYPE DHT11
 DHT dht(DHTPIN, DHTTYPE);
 
-unsigned long intervallog = 600000;   // the time we need to wait
+unsigned long intervallog = 5000;   // the time we need to wait
 unsigned long previousMillisLog = 0; // millis() returns an unsigned long.
 unsigned long intervalsycn = 20000;   // the time we need to wait
 unsigned long previousMillisSycn = 0; // millis() returns an unsigned long.
 
 String uniq_device = "halaman1";
-#define pin_ldr     0 //A0
+#define pin_ldr     2 //A0
 #define pin_tanah   1 //A1
-#define pin_battery 2 //A2
+#define pin_battery 0 //A2
 
-#define led_notif 8
+#define led_notif 13
 #define jeda      300
 
 void setup() {
         Serial.begin(9600);
 
-        if (!SD.begin(5)) {
+        if (!SD.begin(53)) {
                 Serial.println(F("gagal sdcard."));
                 return;
         }
@@ -41,10 +41,10 @@ void setup() {
         digitalWrite(led_notif, LOW);
 
         // use DHCP
-        ceksim();
+        void ceksim();
         while (!gprs.init()) {
                 Serial.println(F("gagal cek sim card"));
-                gagalsim();
+                void gagalsim();
         }
         delay(3000);
         digitalWrite(led_notif, HIGH);
@@ -56,12 +56,12 @@ void loop() {
 
 
         if ((unsigned long)(currentMillis - previousMillisSycn) >= intervalsycn) {
-                bacalog ();
+                void bacalog ();
                 previousMillisSycn = currentMillis;
         }
 
         if ((unsigned long)(currentMillis1 - previousMillisLog) >= intervallog) {
-                bacasensor();
+                void bacasensor();
                 previousMillisLog = currentMillis1;
         }
 
@@ -69,10 +69,10 @@ void loop() {
 }
 
 void kirimserver () {
-        cekapn();
+        void cekapn();
         while (!gprs.join(F("internet"))) {
                 Serial.println(F("gagal masuk setting apn"));
-                gagalapn();
+                void gagalapn();
         }
         digitalWrite(led_notif, HIGH);
 
@@ -82,7 +82,7 @@ void kirimserver () {
 
         if (!gprs.connect(TCP, "184.106.153.149", 80)) {
                 Serial.println(F("koneksi gagal"));
-                gagalkoneksi();
+                void gagalkoneksi();
         } else {
                 digitalWrite(led_notif, HIGH);
 
@@ -108,7 +108,7 @@ void kirimserver () {
         pubString.toCharArray(http_cmd, pubString.length() + 1);
         gprs.send(http_cmd, sizeof(http_cmd) - 1);
 
-        berhasilupload();
+        void berhasilupload();
         gprs.close();
         gprs.disconnect();
 }
@@ -123,7 +123,7 @@ String ambiljam () {
 void bacasensor() {
 
         //panggil fungsi bacasensor
-        //Serial.println(F("membaca sensor yang terhubung..."));
+        Serial.println(F("membaca sensor yang terhubung..."));
 
         int baca_cahaya = analogRead(pin_ldr); baca_cahaya = map(baca_cahaya, 0, 1023, 0, 100);
         int baca_tanah = analogRead(pin_tanah); baca_tanah = map(baca_tanah, 0, 1023, 0, 100);
